@@ -1,0 +1,13 @@
+Lib/
+Scripts/
+pyvenv.cfg
+
+.vscode/
+
+db.sqlite3
+debug.log
+
+*.pyc
+*~
+__pycache__
+**/migrations/*.py
