@@ -5,6 +5,8 @@ class Enrollment(models.Model):
     enrollment = models.IntegerField(
         validators=[MinValueValidator(2018), MaxValueValidator(2023)]
     )
+    class Meta:
+        db_table = 'app_enrollment'
 
     def __str__(self):
         return str(self.enrollment)
@@ -24,6 +26,8 @@ class Student(models.Model):
         max_length=10, choices=STATUS, default="active"
     )
     others = models.TextField(blank=True)
+    class Meta:
+        db_table = 'app_student'
 
     def __str__(self):
         return self.name
@@ -42,6 +46,8 @@ class Instructor(models.Model):
         max_length=10, choices=FACULTY, default="na"
     )
     others = models.TextField(blank=True)
+    class Meta:
+        db_table = 'app_instructor'
 
     def __str__(self):
         return self.name
@@ -80,6 +86,8 @@ class Course(models.Model):
         related_name="instr_2"
     )
     others = models.TextField(blank=True)
+    class Meta:
+        db_table = 'app_course'
 
     def __str__(self):
         return self.course_id
@@ -100,3 +108,5 @@ class Course_student(models.Model):
         max_length=10, choices=STATUS, default="inactive"
     )
     others = models.TextField(blank=True)
+    class Meta:
+        db_table = 'app_course_student'
