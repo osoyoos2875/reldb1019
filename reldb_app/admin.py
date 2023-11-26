@@ -17,7 +17,7 @@ class CourseStudentAdmin(admin.ModelAdmin):
 
 admin.site.register(Enrollment)
 admin.site.register(Student, StudentAdmin)
-#admin.site.register(Student)
+
 admin.site.register(Instructor)
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Course_student, CourseStudentAdmin)
