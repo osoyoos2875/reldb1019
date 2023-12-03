@@ -11,7 +11,7 @@ class IntegerRangeField(models.IntegerField):
         return super(IntegerRangeField, self).formfield(**defaults)
 
 class Enrollment(models.Model):
-    enrollment = IntegerRangeField(min_value=2018, max_value=2099)
+    enrollment = IntegerRangeField(min_value=2018, max_value=2099, primary_key=True)
     class Meta:
         db_table = 'app_enrollment'
 
