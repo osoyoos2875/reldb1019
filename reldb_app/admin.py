@@ -23,7 +23,6 @@ class StudentResource(ModelResource):
 #                        'email', 'current_status', 'others', 'enrollment')
         import_id_fields = ['student_id']
 
-
 class InstructorResource(ModelResource):
     name = Field(attribute='name', column_name='name')
     kana = Field(attribute='kana', column_name='kana')
@@ -35,18 +34,35 @@ class InstructorResource(ModelResource):
         model = Instructor
         import_order = ('name', 'kana', 'name_en', 'email', 'faculty', 'others')
 
-class InstructorAdmin(ImportMixin, admin.ModelAdmin):
-    resource_class = InstructorResource
-    list_display = ('name', 'faculty')
+class CourseResource(ModelResource):
+    course_id = Field(attribute='course_id', column_name='course_id')
+    title = Field(attribute='title', column_name='title')
+    title_en = Field(attribute='title_en', column_name='title_en')
+    title_short = Field(attribute='title_short', column_name='title_short')
+    acad_year = Field(attribute='acad_year', column_name='acad_year')
+    quarter = Field(attribute='quarter', column_name='quarter')
+    day_of_week = Field(attribute='day_of_week', column_name='day_of_week')
+    slot = Field(attribute='slot', column_name='slot')
+    instructor1 = Field(attribute='instructor1', column_name='instructor1', widget=ForeignKeyWidget(Instructor, 'name'))
+    instructor2 = Field(attribute='instructor2', column_name='instructor2', widget=ForeignKeyWidget(Instructor, 'name'))
+    others = Field(attribute='others', column_name='others')
+    class Meta:
+        model = Course
+        import_id_fields = ['course_id']
+
+class CourseAdmin(ImportMixin, admin.ModelAdmin):
+    resource_class = CourseResource
+    list_display = ('instructor1', 'title_short', 'title')
+    list_filter = ('acad_year', 'quarter')
 
 class StudentAdmin(ImportMixin, admin.ModelAdmin):
     list_display = ('name', 'enrollment')
     resource_class = StudentResource
     list_filter = ('enrollment', 'current_status')
 
-class CourseAdmin(admin.ModelAdmin):
-    list_display = ('title_short', 'title', 'instructor1')
-    list_filter = ('acad_year', 'quarter')
+class InstructorAdmin(ImportMixin, admin.ModelAdmin):
+    resource_class = InstructorResource
+    list_display = ('name', 'faculty')
 
 class CourseStudentAdmin(admin.ModelAdmin):
     list_display = ('student', 'course')
