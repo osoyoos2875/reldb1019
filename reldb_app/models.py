@@ -1,10 +1,17 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+class IntegerRangeField(models.IntegerField):
+    def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
+        self.min_value, self.max_value = min_value, max_value
+        models.IntegerField.__init__(self, verbose_name, name, **kwargs)
+    def formfield(self, **kwargs):
+        defaults = {'min_value': self.min_value, 'max_value':self.max_value}
+        defaults.update(kwargs)
+        return super(IntegerRangeField, self).formfield(**defaults)
+
 class Enrollment(models.Model):
-    enrollment = models.IntegerField(
-        validators=[MinValueValidator(2018), MaxValueValidator(2023)]
-    )
+    enrollment = IntegerRangeField(min_value=2018, max_value=2099)
     class Meta:
         db_table = 'app_enrollment'
 
