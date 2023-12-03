@@ -1,10 +1,10 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-class IntegerRangeField(models.IntegerField):
+class IntegerRangeField(models.PositiveSmallIntegerField):
     def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
         self.min_value, self.max_value = min_value, max_value
-        models.IntegerField.__init__(self, verbose_name, name, **kwargs)
+        models.PositiveSmallIntegerField.__init__(self, verbose_name, name, **kwargs)
     def formfield(self, **kwargs):
         defaults = {'min_value': self.min_value, 'max_value':self.max_value}
         defaults.update(kwargs)
@@ -72,13 +72,11 @@ class Course(models.Model):
     ("P3", "３限"), ("P4", "４限"), ("P5", "５限")
     ]
 
-    course_id = models.CharField(max_length=10, unique=True)
+    course_id = models.CharField(max_length=10, primary_key=True)
     title = models.CharField(max_length=100)
     title_en = models.CharField(max_length=100)
     title_short = models.CharField(max_length=20)
-    acad_year = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(2018), MaxValueValidator(2023)]
-    )
+    acad_year = IntegerRangeField(min_value=2018, max_value=2099)
     quarter = models.CharField(max_length=10, choices=QUARTER)
     day_of_week = models.CharField(
         max_length=3, choices=DAY, default="Tue"
