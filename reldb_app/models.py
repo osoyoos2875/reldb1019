@@ -45,7 +45,7 @@ class Instructor(models.Model):
     ("permanent", "専任"), ("adjunct", "科目担当"), ("na", "その他")
     ]
 
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True)
     kana = models.CharField(max_length=30)
     name_en = models.CharField(max_length=30)
     email = models.EmailField(max_length = 254)
