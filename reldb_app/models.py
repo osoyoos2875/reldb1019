@@ -22,7 +22,7 @@ class Student(models.Model):
     GENDER = [("male", "男"), ("female", "女"), ("na", "NA")]
     STATUS = [("active", "在学"), ("leave", "休学"), ("graduate", "卒業")]
 
-    student_id = models.CharField(max_length=10, unique=True)
+    student_id = models.CharField(max_length=10, primary_key=True)
     name = models.CharField(max_length=30)
     kana = models.CharField(max_length=30)
     name_en = models.CharField(max_length=30)

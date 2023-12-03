@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'reldb2',
+        'NAME': 'reldb3',
         'USER':'root',
         'PASSWORD':'',
         'HOST':'localhost',
