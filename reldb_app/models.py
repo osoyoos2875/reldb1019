@@ -72,16 +72,16 @@ class Course(models.Model):
     ("P3", "３限"), ("P4", "４限"), ("P5", "５限")
     ]
 
-    course_id = models.CharField(max_length=10, primary_key=True)
+    course_id = models.CharField(max_length=15, primary_key=True)
+    course_short = models.CharField(max_length=20)
     title = models.CharField(max_length=100)
     title_en = models.CharField(max_length=100)
-    title_short = models.CharField(max_length=20)
     acad_year = IntegerRangeField(min_value=2018, max_value=2099)
-    quarter = models.CharField(max_length=10, choices=QUARTER)
+    quarter = models.CharField(max_length=5, choices=QUARTER)
     day_of_week = models.CharField(
-        max_length=3, choices=DAY, default="Tue"
+        max_length=5, choices=DAY, default="Tue"
     )
-    slot = models.CharField(max_length=10, choices=SLOT)
+    slot = models.CharField(max_length=5, choices=SLOT)
     instructor1 = models.ForeignKey(
         Instructor, null=True, on_delete=models.SET_NULL,
         related_name="instr_1"

@@ -19,7 +19,7 @@ class StudentResource(ModelResource):
     others = Field(attribute='others', column_name='others')
     class Meta:
         model = Student
-#        import_order = ('student_id', 'name', 'kana', 'name_en', 'gender',
+#        export_order = ('student_id', 'name', 'kana', 'name_en', 'gender',
 #                        'email', 'current_status', 'others', 'enrollment')
         import_id_fields = ['student_id']
 
@@ -32,13 +32,13 @@ class InstructorResource(ModelResource):
     others = Field(attribute='others', column_name='others')
     class Meta:
         model = Instructor
-        import_order = ('name', 'kana', 'name_en', 'email', 'faculty', 'others')
+#        export_order = ('name', 'kana', 'name_en', 'email', 'faculty', 'others')
 
 class CourseResource(ModelResource):
     course_id = Field(attribute='course_id', column_name='course_id')
+    course_short = Field(attribute='course_short', column_name='course_short')
     title = Field(attribute='title', column_name='title')
     title_en = Field(attribute='title_en', column_name='title_en')
-    title_short = Field(attribute='title_short', column_name='title_short')
     acad_year = Field(attribute='acad_year', column_name='acad_year')
     quarter = Field(attribute='quarter', column_name='quarter')
     day_of_week = Field(attribute='day_of_week', column_name='day_of_week')
@@ -52,7 +52,7 @@ class CourseResource(ModelResource):
 
 class CourseAdmin(ImportMixin, admin.ModelAdmin):
     resource_class = CourseResource
-    list_display = ('instructor1', 'title_short', 'title')
+    list_display = ('instructor1', 'course_short', 'title')
     list_filter = ('acad_year', 'quarter')
 
 class StudentAdmin(ImportMixin, admin.ModelAdmin):
