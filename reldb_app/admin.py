@@ -50,6 +50,14 @@ class CourseResource(ModelResource):
         model = Course
         import_id_fields = ['course_id']
 
+class CourseStudentResource(ModelResource):
+    student = Field(attribute='student', column_name='student', widget=ForeignKeyWidget(Student, 'student_id'))
+    course = Field(attribute='course', column_name='course', widget=ForeignKeyWidget(Course, 'course_id'))
+    current_status = Field(attribute='current_status', column_name='status')
+    others = Field(attribute='others', column_name='others')
+    class Meta:
+        model = Course_student
+
 class CourseAdmin(ImportMixin, admin.ModelAdmin):
     resource_class = CourseResource
     list_display = ('instructor1', 'course_short', 'title')
@@ -64,8 +72,10 @@ class InstructorAdmin(ImportMixin, admin.ModelAdmin):
     resource_class = InstructorResource
     list_display = ('name', 'faculty')
 
-class CourseStudentAdmin(admin.ModelAdmin):
-    list_display = ('student', 'course')
+class CourseStudentAdmin(ImportMixin, admin.ModelAdmin):
+    list_display = ('student', 'course', 'current_status')
+    resource_class = CourseStudentResource
+    list_filter = ('student', 'course', 'current_status')
 
 
 
